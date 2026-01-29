@@ -13,8 +13,7 @@
          META TAGS & DOCUMENT CONFIGURATION
          ========================================== -->
     <meta charset="UTF-8">
-    <!-- 🔧 FIX: Cập nhật viewport meta tag -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Em ăn cơm chưa? - Trải nghiệm tương tác với âm nhạc, quà tặng và lời nhắn">
     <meta name="keywords" content="gift, interactive, piano, animation, chiikawa">
@@ -48,8 +47,6 @@
     <link rel="stylesheet" href="piano-styles.css">
     <link rel="stylesheet" href="gift-styles.css">
     <link rel="stylesheet" href="message-styles.css">
-    <!-- 🔧 FIX: Thêm CSS fix cho mobile -->
-    <link rel="stylesheet" href="mobile-fixes.css">
 
     <!-- ==========================================
          FONT IMPORTS
@@ -140,37 +137,6 @@
 
       ::-webkit-scrollbar-thumb:hover {
         background: #2ECC71;
-      }
-
-      /* 🔧 FIX: Mobile input font size to prevent auto-zoom */
-      input[type="text"],
-      input[type="email"],
-      input[type="password"],
-      textarea {
-        font-size: 16px !important;
-      }
-
-      /* 🔧 FIX: Ripple effect styling */
-      .ripple-effect {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.5);
-        transform: scale(0);
-        animation: ripple 0.6s ease-out;
-        pointer-events: none;
-      }
-
-      @keyframes ripple {
-        to {
-          transform: scale(4);
-          opacity: 0;
-        }
-      }
-
-      /* 🔧 FIX: Prevent text selection on long press */
-      button, .btn, input, textarea {
-        -webkit-user-select: none;
-        user-select: none;
       }
     </style>
   </head>
@@ -508,7 +474,7 @@
     <!-- ==========================================
          AUDIO ELEMENTS
          ========================================== -->
-    <audio id="backgroundMusic" preload="auto" aria-label="Âm nhạc nền">
+    <audio id="backgroundMusic" preload="auto" loop aria-label="Âm nhạc nền">
       <source src="audio/piano-bg.mp3" type="audio/mpeg">
       Trình duyệt của bạn không hỗ trợ phần tử audio.
     </audio>
@@ -526,8 +492,6 @@
     <!-- ==========================================
          JAVASCRIPT IMPORTS
          ========================================== -->
-    <!-- 🔧 FIX: Thêm mobile fixes script trước các scripts khác -->
-    <script src="mobile-fixes.js" defer></script>
     <script src="piano-script.js" defer></script>
     <script src="gift-script.js" defer></script>
     <script src="message-script.js" defer></script>
@@ -548,7 +512,6 @@
       // Console info
       console.log('%c🎁 Gift Website v2.0', 'font-size: 16px; color: #4A90E2; font-weight: bold;');
       console.log('%cDeveloped with ❤️', 'font-size: 12px; color: #2ECC71;');
-      console.log('%c✅ Mobile Optimized', 'font-size: 12px; color: #27AE60; font-weight: bold;');
     </script>
 
     <!-- ==========================================
