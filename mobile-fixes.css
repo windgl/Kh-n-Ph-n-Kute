@@ -1,0 +1,563 @@
+/* ============================================
+   MOBILE RESPONSIVE FIXES - CRITICAL PATCH
+   ============================================
+   Khắc phục các vấn đề quan trọng trên mobile
+   - Layout bị cắt
+   - Text quá nhỏ
+   - Buttons không chạm được
+   - Images không hiển thị
+   - Animations gây lag
+   ============================================ */
+
+/* ============================================
+   1. FIX VIEWPORT & SAFE AREA
+   ============================================ */
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  padding-top: max(0px, env(safe-area-inset-top));
+  padding-bottom: max(0px, env(safe-area-inset-bottom));
+  padding-left: max(0px, env(safe-area-inset-left));
+  padding-right: max(0px, env(safe-area-inset-right));
+}
+
+/* ============================================
+   2. FIX INTRO SECTION - PHẦN QUAN TRỌNG NHẤT
+   ============================================ */
+
+#section-intro {
+  width: 100vw !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.intro-wrapper {
+  width: 100% !important;
+  padding: 1.5rem 1rem !important;
+  gap: 1.5rem !important;
+  max-width: none !important;
+}
+
+.chiikawa-container {
+  width: 140px !important;
+  height: 140px !important;
+  margin: 0 auto !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.chiikawa-container::before {
+  width: 180px !important;
+  height: 180px !important;
+}
+
+.chiikawa-image {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.intro-title {
+  font-size: 1.75rem !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  margin-bottom: 0.5rem !important;
+  word-break: break-word !important;
+}
+
+.intro-subtitle {
+  font-size: 0.95rem !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+  margin-bottom: 1rem !important;
+}
+
+.wave-container {
+  height: 80px !important;
+  margin: 1rem 0 !important;
+}
+
+/* ============================================
+   3. FIX BUTTONS - TOUCH TARGET SIZE
+   ============================================ */
+
+button, .btn {
+  min-height: 48px !important;
+  min-width: 48px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-size: 1rem !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+#btnIntroNext,
+#btnPianoNext,
+#btnOpenGift,
+#btnGiftNext {
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0.75rem 1.5rem !important;
+  min-height: 48px !important;
+  justify-content: center !important;
+}
+
+button svg,
+.btn svg {
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ============================================
+   4. FIX PIANO SECTION - KEYS CÓ THỂ CHẠM
+   ============================================ */
+
+#section-piano {
+  width: 100vw !important;
+  padding: 1rem 0 !important;
+  overflow: hidden !important;
+}
+
+.piano-wrapper {
+  width: 100% !important;
+  padding: 1rem !important;
+  max-width: none !important;
+  gap: 1rem !important;
+}
+
+.piano-intro {
+  width: 100% !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.piano-title {
+  font-size: 1.5rem !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.piano-subtitle {
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+}
+
+.piano-container {
+  width: 100% !important;
+  padding: 1rem !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px !important;
+}
+
+.piano-keys {
+  height: 200px !important;
+  gap: 2px !important;
+  padding: 0.5rem !important;
+  justify-content: flex-start !important;
+  min-width: min-content;
+}
+
+.piano-key {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+}
+
+.piano-key.white {
+  width: 35px !important;
+  height: 150px !important;
+  font-size: 0.7rem !important;
+}
+
+.piano-key.black {
+  width: 24px !important;
+  height: 100px !important;
+  font-size: 0.6rem !important;
+}
+
+/* ============================================
+   5. FIX GIFT SECTION
+   ============================================ */
+
+#section-gift {
+  width: 100vw !important;
+  padding: 1rem 0 !important;
+  overflow: hidden !important;
+}
+
+.gift-wrapper {
+  width: 100% !important;
+  padding: 1rem !important;
+  max-width: none !important;
+  gap: 1.5rem !important;
+}
+
+.gift-box-container {
+  width: 100% !important;
+  min-height: 280px !important;
+}
+
+.gift-box {
+  width: 160px !important;
+  height: 160px !important;
+}
+
+.gift-box-image {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.gift-ribbon {
+  height: 25px !important;
+  width: 90% !important;
+}
+
+.gift-hint {
+  font-size: 0.75rem !important;
+  padding: 0.5rem 1rem !important;
+  bottom: 10px !important;
+}
+
+.gift-message {
+  width: 100% !important;
+}
+
+.gift-message-content {
+  padding: 1rem !important;
+}
+
+.gift-message-text {
+  font-size: 1rem !important;
+  line-height: 1.4 !important;
+}
+
+/* ============================================
+   6. FIX MESSAGE SECTION
+   ============================================ */
+
+#section-message {
+  width: 100vw !important;
+  padding: 1rem 0 !important;
+  overflow: hidden !important;
+}
+
+.message-wrapper {
+  width: 100% !important;
+  padding: 1rem !important;
+  max-width: none !important;
+  gap: 1.5rem !important;
+}
+
+.message-intro {
+  width: 100% !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.message-title {
+  font-size: 1.5rem !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.message-subtitle {
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+}
+
+.message-form {
+  width: 100% !important;
+  padding: 1rem !important;
+  gap: 1rem !important;
+  max-width: none !important;
+}
+
+.form-label {
+  font-size: 0.85rem !important;
+}
+
+.form-textarea {
+  min-height: 100px !important;
+  font-size: 1rem !important;
+  padding: 0.5rem 0 !important;
+}
+
+.form-textarea:focus {
+  min-height: 120px !important;
+}
+
+.char-counter {
+  font-size: 0.75rem !important;
+}
+
+/* ============================================
+   7. FIX TEXT RENDERING
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6, p, span, label {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+.text-lg,
+.text-xl,
+.text-2xl,
+.text-3xl {
+  word-break: break-word !important;
+  hyphens: auto;
+}
+
+/* ============================================
+   8. FIX ANIMATIONS FOR MOBILE
+   ============================================ */
+
+.animate-float,
+.animate-slideUp,
+.animate-slideDown,
+.animate-pulse {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.confetti {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+.rain-particle {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+/* ============================================
+   9. FIX BACKGROUND DECORATIONS
+   ============================================ */
+
+#section-intro::before,
+#section-intro::after,
+#section-piano::before,
+#section-piano::after,
+#section-gift::before,
+#section-gift::after,
+#section-message::before,
+#section-message::after {
+  display: none !important;
+}
+
+/* ============================================
+   10. FIX SCROLLING & LAYOUT
+   ============================================ */
+
+.main-container {
+  width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+.section {
+  width: 100vw !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  min-height: auto !important;
+}
+
+/* ============================================
+   11. FIX MODAL & OVERLAY
+   ============================================ */
+
+.loading-screen {
+  z-index: 9999 !important;
+}
+
+.confetti-container,
+.rain-container {
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999 !important;
+}
+
+/* ============================================
+   12. FIX FORM INPUTS
+   ============================================ */
+
+input,
+textarea,
+select {
+  font-size: 16px !important;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 8px !important;
+}
+
+textarea {
+  font-family: inherit !important;
+  resize: vertical !important;
+}
+
+/* ============================================
+   13. FIX CARD COMPONENTS
+   ============================================ */
+
+.card {
+  width: 100% !important;
+  padding: 1rem !important;
+}
+
+.success-message {
+  width: 100% !important;
+}
+
+.success-icon {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+.success-content {
+  padding: 1rem !important;
+}
+
+/* ============================================
+   14. FIX GRID & FLEX FOR MOBILE
+   ============================================ */
+
+.flex-col-mobile {
+  flex-direction: column !important;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+  grid-template-columns: 1fr !important;
+}
+
+/* ============================================
+   15. OPTIMIZE PERFORMANCE
+   ============================================ */
+
+@media (max-width: 480px) {
+  * {
+    -webkit-font-smoothing: subpixel-antialiased !important;
+  }
+
+  /* Disable expensive animations */
+  .wave {
+    animation: none !important;
+  }
+
+  /* Reduce shadow complexity */
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* Fix container sizes */
+  .container {
+    max-width: 100% !important;
+    padding: 1rem !important;
+  }
+
+  /* Fix spacing */
+  .spacing-xl {
+    margin: 1rem !important;
+  }
+}
+
+/* ============================================
+   16. SAFE AREA INSETS (iPhone notch, etc.)
+   ============================================ */
+
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .section {
+    padding-left: max(0, env(safe-area-inset-left));
+    padding-right: max(0, env(safe-area-inset-right));
+  }
+}
+
+/* ============================================
+   17. LANDSCAPE MODE FIX
+   ============================================ */
+
+@media (max-height: 500px) {
+  #section-intro,
+  #section-piano,
+  #section-gift,
+  #section-message {
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  .intro-wrapper,
+  .piano-wrapper,
+  .gift-wrapper,
+  .message-wrapper {
+    gap: 0.5rem !important;
+  }
+
+  .piano-keys {
+    height: 150px !important;
+  }
+
+  .gift-box {
+    width: 120px !important;
+    height: 120px !important;
+  }
+}
+
+/* ============================================
+   18. MOBILE NAVIGATION FIX
+   ============================================ */
+
+button:active,
+.btn:active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+button:active svg,
+.btn:active svg {
+  transform: none !important;
+}
+
+/* ============================================
+   19. IMAGE OPTIMIZATION
+   ============================================ */
+
+img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.chiikawa-image,
+.gift-box-image {
+  object-fit: contain !important;
+}
+
+/* ============================================
+   20. Z-INDEX FIX
+   ============================================ */
+
+.section {
+  position: relative;
+  z-index: auto !important;
+}
+
+.main-container {
+  position: relative;
+  z-index: 1;
+}
