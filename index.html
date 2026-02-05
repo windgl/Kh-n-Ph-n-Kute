@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <script type="text/javascript" src="https://unpkg.com/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script type="text/javascript">
+   (function(){
+      // Khởi tạo ngay lập tức sau khi tải thư viện
+      emailjs.init("j-6LlihUH6GNu_ZZC"); // Thay Public Key của bạn vào đây
+   })();
+</script>
+    <!-- ==========================================
+         META TAGS & DOCUMENT CONFIGURATION
+         ========================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Em ăn cơm chưa? - Trải nghiệm tương tác với âm nhạc, quà tặng và lời nhắn">
+    <meta name="keywords" content="gift, interactive, piano, animation, chiikawa">
+    <meta name="author" content="Developed with love">
+    <meta name="theme-color" content="#4A90E2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Gift">
+    
+    <!-- ==========================================
+         OPEN GRAPH META TAGS
+         ========================================== -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="🎁 Gửi Khén Phưn Kute">
+    <meta property="og:description" content="Em ăn cơm chưa?">
+    <meta property="og:site_name" content="Gift Website">
+    <meta property="og:locale" content="vi_VN">
+
+    <!-- ==========================================
+         TWITTER META TAGS
+         ========================================== -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="🎁 Gửi Khén Phưn Kute">
+    <meta name="twitter:description" content="Em ăn cơm chưa?">
+
+    <!-- ==========================================
+         STYLESHEET IMPORTS
+         ========================================== -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="intro-styles.css">
+    <link rel="stylesheet" href="piano-styles.css">
+    <link rel="stylesheet" href="gift-styles.css">
+    <link rel="stylesheet" href="message-styles.css">
+    <!-- 🆕 NEW: Effects CSS for Glassmorphism & Interactions -->
+    <link rel="stylesheet" href="effects.css">
+
+    <!-- ==========================================
+         FONT IMPORTS
+         ========================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ==========================================
+         FAVICON & APP ICONS
+         ========================================== -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="images/chiikawa.png">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- ==========================================
+         TITLE
+         ========================================== -->
+    <title>🎁 Gửi Khén Phưn Kute</title>
+
+    <!-- ==========================================
+         PRELOAD CRITICAL RESOURCES
+         ========================================== -->
+    <link rel="preload" as="image" href="images/chiikawa.png">
+    <link rel="preload" as="image" href="images/gift-box.png">
+    <link rel="preload" as="audio" href="audio/piano-C.mp3">
+    <link rel="preload" as="audio" href="audio/piano-bg.mp3">
+
+    <!-- ==========================================
+         DNS PREFETCH
+         ========================================== -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+    <!-- ==========================================
+         STYLE OVERRIDES & CUSTOM STYLES
+         ========================================== -->
+    <style>
+      :root {
+        --primary-ocean: #4A90E2;
+        --primary-green: #2ECC71;
+      }
+
+      /* Smooth transitions */
+      * {
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      body {
+        background: linear-gradient(180deg, #FAFBFC 0%, rgba(168, 230, 207, 0.2) 100%);
+      }
+
+      /* Loading screen fade out */
+      .loading-screen {
+        animation: loadingFadeOut 0.5s ease forwards;
+        animation-delay: 2.5s;
+      }
+
+      @keyframes loadingFadeOut {
+        from {
+          opacity: 1;
+          visibility: visible;
+        }
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      /* Smooth page transitions */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(168, 230, 207, 0.1);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #4A90E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #2ECC71;
+      }
+    </style>
+  </head>
+
+  <body>
+    
+    <!-- ==========================================
+         LOADING SCREEN
+         ========================================== -->
+    <div id="loadingScreen" class="loading-screen" role="status" aria-label="Đang tải trang">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p class="loading-text">Đang tải...</p>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         MAIN APPLICATION CONTAINER
+         ========================================== -->
+    <main id="mainContainer" class="main-container" role="main">
+
+      <!-- ==========================================
+           SECTION 1: INTRO WITH CHIIKAWA & WAVE
+           ========================================== -->
+      <section id="section-intro" class="section active" aria-label="Phần giới thiệu">
+        <div class="section-content">
+          <!-- 🆕 Parallax layers -->
+          <div class="parallax-layer parallax-layer-1"></div>
+          <div class="parallax-layer parallax-layer-2"></div>
+          
+          <div class="intro-wrapper">
+            
+            <!-- Chiikawa Character Display -->
+            <div class="chiikawa-container" role="img" aria-label="Hình ảnh Chiikawa">
+              <img 
+                src="images/chiikawa.png" 
+                alt="Chiikawa - Nhân vật chính" 
+                class="chiikawa-image animate-float"
+                loading="lazy"
+              >
+            </div>
+
+            <!-- Wave Animation Canvas -->
+            <div class="wave-container" aria-hidden="true">
+              <canvas id="waveCanvas"></canvas>
+            </div>
+
+            <!-- Main Content -->
+            <div class="intro-content">
+              <h1 class="intro-title animate-slideUp" role="heading" aria-level="1">
+                Gửi Khén Phưn Kute
+              </h1>
+              
+              <p class="intro-subtitle animate-slideUp" style="animation-delay: 0.2s;">
+                Em ăn cơm chưa?
+              </p>
+
+              <!-- Main CTA Button with glass effect -->
+              <button 
+                id="btnIntroNext" 
+                class="btn btn-primary mt-lg animate-slideUp glass-gradient"
+                style="animation-delay: 0.4s;"
+                aria-label="Tiếp tục đến phần tiếp theo"
+                type="button"
+              >
+                Tiếp tục
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SECTION 2: INTERACTIVE PIANO
+           ========================================== -->
+      <section id="section-piano" class="section hidden" aria-label="Phần đàn piano tương tác">
+        <div class="section-content">
+          <div class="piano-wrapper">
+            
+            <!-- Piano Section Title -->
+            <div class="piano-intro">
+              <h2 class="piano-title animate-slideDown" role="heading" aria-level="2">
+                Ây da mình nhức đầu quá 
+              </h2>
+              <p class="piano-subtitle animate-slideDown" style="animation-delay: 0.2s;">
+                Đánh bài gì cho mình nổ não đi bạn.
+              </p>
+            </div>
+
+            <!-- Piano Keys Container with glassmorphism -->
+            <div class="piano-container animate-slideUp glass" style="animation-delay: 0.3s;">
+              <div class="piano-keys" role="group" aria-label="Phím đàn piano">
+                <!-- White & Black Keys -->
+                <div class="piano-key white" data-note="C" role="button" tabindex="0" aria-label="Phím C"></div>
+                <div class="piano-key black" data-note="C#" role="button" tabindex="0" aria-label="Phím C#"></div>
+                <div class="piano-key white" data-note="D" role="button" tabindex="0" aria-label="Phím D"></div>
+                <div class="piano-key black" data-note="D#" role="button" tabindex="0" aria-label="Phím D#"></div>
+                <div class="piano-key white" data-note="E" role="button" tabindex="0" aria-label="Phím E"></div>
+                <div class="piano-key white" data-note="F" role="button" tabindex="0" aria-label="Phím F"></div>
+                <div class="piano-key black" data-note="F#" role="button" tabindex="0" aria-label="Phím F#"></div>
+                <div class="piano-key white" data-note="G" role="button" tabindex="0" aria-label="Phím G"></div>
+                <div class="piano-key black" data-note="G#" role="button" tabindex="0" aria-label="Phím G#"></div>
+                <div class="piano-key white" data-note="A" role="button" tabindex="0" aria-label="Phím A"></div>
+                <div class="piano-key black" data-note="A#" role="button" tabindex="0" aria-label="Phím A#"></div>
+                <div class="piano-key white" data-note="B" role="button" tabindex="0" aria-label="Phím B"></div>
+              </div>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="piano-info mt-xl text-center">
+              <p class="text-muted text-sm">🎵🎵🎵🎵🎵🎵</p>
+              <p class="progress-text text-xs mt-sm">
+                <span id="pianoProgress">Alo Bíp Bíp phải không em?</span>
+              </p>
+            </div>
+
+            <!-- Next Section Button -->
+            <button 
+              id="btnPianoNext" 
+              class="btn btn-secondary mt-xl glass"
+              aria-label="Tiếp tục đến phần quà tặng"
+              type="button"
+            >
+              Tiếp tục
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SECTION 3: GIFT BOX UNWRAP
+           ========================================== -->
+      <section id="section-gift" class="section hidden" aria-label="Phần mở quà tặng">
+        <div class="section-content">
+          <div class="gift-wrapper">
+            
+            <!-- Gift Box Container -->
+            <div class="gift-box-container">
+              <div 
+                id="giftBox" 
+                class="gift-box tilt-card"
+                role="button"
+                tabindex="0"
+                aria-label="Hộp quà - Nhấn để mở"
+              >
+                <!-- Gift Box Visual -->
+                <div class="gift-box-visual">
+                  <img 
+                    src="images/gift-box.png" 
+                    alt="Hộp quà tặng" 
+                    class="gift-box-image"
+                    loading="lazy"
+                  >
+                </div>
+
+                <!-- Ribbon Decoration -->
+                <div class="gift-ribbon" aria-hidden="true"></div>
+
+                <!-- Click Hint -->
+                <div class="gift-hint">
+                  <p class="text-sm">Đoán xem trong hộp có gì?</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Open Gift Button with glass -->
+            <button 
+              id="btnOpenGift" 
+              class="btn btn-primary mt-xl gift-open-button glass-gradient glow-on-hover"
+              aria-label="Nút mở hộp quà"
+              type="button"
+            >
+              Mở Hộp Quà
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="M12 2L15.09 8.26H22L17.55 12.5L20.09 18.26L12 14.01L3.91 18.26L6.45 12.5L2 8.26H8.91L12 2Z"/>
+              </svg>
+            </button>
+
+            <!-- Gift Message (Hidden until opened) -->
+            <div id="giftMessage" class="gift-message hidden" role="region" aria-live="polite">
+              <div class="card card-gradient glass">
+                <div class="gift-message-content">
+                  <p class="gift-message-text text-lg text-center">
+                    ✨ Không có gì hêt ✨
+                  </p>
+                  <div class="divider mt-lg mb-lg" aria-hidden="true"></div>
+                  <p class="gift-message-detail text-base text-center">
+                    Cảm ơn bạn đã mở quà của mình
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Continue Button (Hidden until gift opened) -->
+            <button 
+              id="btnGiftNext" 
+              class="btn btn-primary mt-xl hidden glass"
+              aria-label="Tiếp tục đến phần lời nhắn"
+              type="button"
+            >
+              Tiếp tục
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SECTION 4: MESSAGE INPUT
+           ========================================== -->
+      <section id="section-message" class="section hidden" aria-label="Phần nhập lời nhắn">
+        <div class="section-content">
+          <div class="message-wrapper">
+            
+            <!-- Message Section Title -->
+            <div class="message-intro">
+              <h2 class="message-title animate-slideUp" role="heading" aria-level="2">
+                Điều mà bạn muốn nói với mình?
+              </h2>
+              <p class="message-subtitle animate-slideUp" style="animation-delay: 0.2s;">
+                ( Diu Em Luon Giu Kin Trong Tym )
+              </p>
+            </div>
+
+            <!-- Message Form with glassmorphism -->
+            <form 
+              id="messageForm" 
+              class="message-form animate-slideUp glass" 
+              style="animation-delay: 0.4s;"
+              novalidate
+            >
+              <div class="form-group">
+                <label for="messageInput" class="form-label">Đìu muốn nói</label>
+                <textarea 
+                  id="messageInput" 
+                  class="form-textarea"
+                  placeholder="Viết điều gì đó ở đây..."
+                  required
+                  minlength="5"
+                  maxlength="2000"
+                  aria-describedby="charCount"
+                  aria-required="true"
+                ></textarea>
+                <p class="text-xs text-muted mt-sm" id="charCount">
+                  <span id="charCountValue">0</span> / 2000 ký tự
+                </p>
+              </div>
+
+              <!-- Submit Button -->
+              <button 
+                type="submit" 
+                class="btn btn-primary btn-lg mt-lg w-full glass-gradient interactive-highlight"
+                aria-label="Gửi lời nhắn của bạn"
+              >
+                Gửi cho mình 
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path d="M19 14c1.49-1.46 3-3.5 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2 1.51 4.04 3 5.5"/>
+                </svg>
+              </button>
+            </form>
+
+            <!-- Success Message (Hidden until form submitted) -->
+            <div id="successMessage" class="success-message hidden" role="region" aria-live="assertive" aria-label="Lời nhắn được gửi thành công">
+              <div class="card card-gradient glass">
+                <div class="success-content text-center">
+                  <div class="success-icon" aria-hidden="true">
+                    <svg 
+                      width="60" 
+                      height="60" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      stroke-width="2"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl mt-md">Cảm ơn bạn!</h3>
+                  <p class="text-muted mt-sm">
+                    Điều bạn muốn nói với mình đã được ghi lại 💚
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==========================================
+         AUDIO ELEMENTS
+         ========================================== -->
+    <audio id="backgroundMusic" preload="auto" loop aria-label="Âm nhạc nền">
+      <source src="audio/piano-bg.mp3" type="audio/mpeg">
+      Trình duyệt của bạn không hỗ trợ phần tử audio.
+    </audio>
+
+    <audio id="clickSound" preload="auto" aria-label="Âm thanh nhấp">
+      <source src="audio/click-sound.mp3" type="audio/mpeg">
+      Trình duyệt của bạn không hỗ trợ phần tử audio.
+    </audio>
+
+    <audio id="unlockSound" preload="auto" aria-label="Âm thanh mở khóa">
+      <source src="audio/unlock-sound.mp3" type="audio/mpeg">
+      Trình duyệt của bạn không hỗ trợ phần tử audio.
+    </audio>
+
+    <!-- ==========================================
+         JAVASCRIPT IMPORTS
+         ========================================== -->
+    <!-- 🆕 NEW: Load effects scripts FIRST -->
+    <script src="particles.js" defer></script>
+    <script src="haptics.js" defer></script>
+    <script src="effects.js" defer></script>
+    
+    <!-- Existing scripts -->
+    <script src="piano-script.js" defer></script>
+    <script src="gift-script.js" defer></script>
+    <script src="message-script.js" defer></script>
+    <script src="intro-script.js" defer></script>
+
+    <!-- ==========================================
+         INLINE SCRIPT FOR EARLY PERFORMANCE
+         ========================================== -->
+    <script>
+      // Prevent FOUC (Flash of Unstyled Content)
+      document.documentElement.style.display = 'block';
+
+      // Performance monitoring
+      if (window.performance && window.performance.mark) {
+        performance.mark('app-start');
+      }
+
+      // Console info
+      console.log('%c🎁 Gift Website v3.0 - UPGRADED', 'font-size: 16px; color: #4A90E2; font-weight: bold;');
+      console.log('%c✨ Glassmorphism + Particles + Haptics', 'font-size: 12px; color: #2ECC71;');
+      console.log('%cDeveloped with ❤️', 'font-size: 12px; color: #FF6B9D;');
+    </script>
+
+    <!-- ==========================================
+         FALLBACK FOR NO JAVASCRIPT
+         ========================================== -->
+    <noscript>
+      <style>
+        .loading-screen { display: none; }
+        .section { display: block; }
+        .section.hidden { display: none; }
+        main { display: block; }
+      </style>
+      <div class="container">
+        <h1>Ứng dụng này yêu cầu JavaScript</h1>
+        <p>Vui lòng bật JavaScript trong trình duyệt của bạn để tiếp tục.</p>
+      </div>
+    </noscript>
+  </body>
+</html>

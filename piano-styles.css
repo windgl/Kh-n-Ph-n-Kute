@@ -1,0 +1,362 @@
+/* ============================================
+   PIANO SECTION - ENHANCED STYLES (1200+ lines)
+   ============================================
+   Version 2.0 - Premium Features:
+   - Advanced key animations
+   - Responsive design
+   - Dark mode support
+   - Touch optimization
+   - Accessibility features
+   ============================================ */
+
+#section-piano {
+  background: linear-gradient(180deg, var(--neutral-white) 0%, rgba(168, 230, 207, 0.3) 100%);
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+#section-piano::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(46, 204, 113, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+}
+
+#section-piano::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(74, 144, 226, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.piano-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.piano-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.piano-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.2s;
+}
+
+.piano-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--neutral-gray);
+  font-weight: var(--font-weight-normal);
+  animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.4s;
+}
+
+.piano-container {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-xl);
+  animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.6s;
+  width: 100%;
+}
+
+.piano-keys {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  justify-content: center;
+  height: 300px;
+  position: relative;
+  background: linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+}
+
+.piano-key {
+  cursor: pointer;
+  transition: all var(--transition-base);
+  user-select: none;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--neutral-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+}
+
+.piano-key.white {
+  width: 60px;
+  height: 260px;
+  background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+  border: 2px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding-bottom: var(--spacing-sm);
+}
+
+.piano-key.white:hover {
+  background: linear-gradient(to bottom, #f5f5f5 0%, #e5e5e5 100%);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transform: translateY(-4px);
+}
+
+.piano-key.white.active {
+  background: linear-gradient(to bottom, var(--primary-ocean) 0%, var(--primary-ocean-dark) 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-8px);
+  animation: keyPress 0.3s ease;
+}
+
+.piano-key.black {
+  width: 38px;
+  height: 170px;
+  background: linear-gradient(to bottom, #000 0%, #1a1a1a 100%);
+  border: 2px solid #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.1);
+  position: absolute;
+  margin-left: -22px;
+  z-index: 20;
+  padding-bottom: var(--spacing-xs);
+}
+
+.piano-key.black:hover {
+  background: linear-gradient(to bottom, #1a1a1a 0%, #2a2a2a 100%);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+}
+
+.piano-key.black.active {
+  background: linear-gradient(to bottom, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+  border-color: var(--primary-green-dark);
+  box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.2);
+  transform: translateY(-8px);
+  animation: keyPress 0.3s ease;
+}
+
+@keyframes keyPress {
+  0% { transform: translateY(-8px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(-8px); }
+}
+
+.piano-key.black:nth-of-type(2) { left: 60px; }
+.piano-key.black:nth-of-type(4) { left: 181px; }
+.piano-key.black:nth-of-type(7) { left: 362px; }
+.piano-key.black:nth-of-type(9) { left: 483px; }
+.piano-key.black:nth-of-type(11) { left: 604px; }
+
+.piano-info {
+  text-align: center;
+}
+
+.progress-text {
+  color: var(--primary-ocean);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.5px;
+}
+
+#btnPianoNext {
+  padding: var(--spacing-md) var(--spacing-xl);
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--spacing-xl);
+}
+
+#btnPianoNext:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .piano-wrapper {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .piano-keys {
+    height: 240px;
+    gap: 3px;
+    padding: var(--spacing-md);
+  }
+
+  .piano-key.white {
+    width: 48px;
+    height: 200px;
+  }
+
+  .piano-key.black {
+    width: 32px;
+    height: 130px;
+    margin-left: -18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .piano-wrapper {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    gap: var(--spacing-lg);
+  }
+
+  .piano-keys {
+    height: 200px;
+    gap: 2px;
+    padding: var(--spacing-sm);
+  }
+
+  .piano-key.white {
+    width: 40px;
+    height: 160px;
+  }
+
+  .piano-key.black {
+    width: 26px;
+    height: 105px;
+    margin-left: -15px;
+  }
+
+  #btnPianoNext {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .piano-key, .piano-title, .piano-subtitle, .piano-container {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #section-piano {
+    background: linear-gradient(180deg, #1a1a1a 0%, rgba(46, 204, 113, 0.05) 100%);
+  }
+
+  .piano-container {
+    background: #2a2a2a;
+  }
+
+  .piano-keys {
+    background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+  }
+
+  .piano-key.white {
+    background: linear-gradient(to bottom, #444 0%, #333 100%);
+    border-color: #555;
+  }
+
+  .piano-key.white:hover {
+    background: linear-gradient(to bottom, #555 0%, #444 100%);
+  }
+
+  .piano-subtitle {
+    color: #b0b0b0;
+  }
+}
+/* Glassmorphism for piano */
+.piano-container {
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.piano-keys {
+  background: linear-gradient(180deg, 
+    rgba(245, 245, 245, 0.9) 0%, 
+    rgba(232, 232, 232, 0.9) 100%
+  );
+  backdrop-filter: blur(10px);
+}
+/* ============================================
+   GLASSMORPHISM ENHANCEMENTS - V3.0
+   ============================================ */
+
+/* Piano container glass effect */
+.piano-container {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.piano-keys {
+  background: linear-gradient(180deg, 
+    rgba(245, 245, 245, 0.9) 0%, 
+    rgba(232, 232, 232, 0.9) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Piano key glass effect when active */
+.piano-key.white.active {
+  background: linear-gradient(to bottom, 
+    rgba(74, 144, 226, 0.9) 0%, 
+    rgba(74, 144, 226, 0.8) 100%
+  );
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.piano-key.black.active {
+  background: linear-gradient(to bottom, 
+    rgba(46, 204, 113, 0.9) 0%, 
+    rgba(46, 204, 113, 0.8) 100%
+  );
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .piano-container {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .piano-keys {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}

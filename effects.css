@@ -1,0 +1,627 @@
+/* ============================================
+   EFFECTS.CSS - GLASSMORPHISM & INTERACTIONS
+   ============================================
+   New file for Version 3.0:
+   - Glassmorphism styling
+   - Custom cursor effects
+   - Click ripple effects
+   - Hover animations
+   - Parallax helpers
+   ============================================ */
+
+/* ============================================
+   GLASSMORPHISM VARIABLES
+   ============================================ */
+
+:root {
+  /* Glass colors */
+  --glass-white: rgba(255, 255, 255, 0.1);
+  --glass-white-hover: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: rgba(31, 38, 135, 0.37);
+  
+  /* Backdrop blur */
+  --glass-blur: 10px;
+  --glass-blur-strong: 20px;
+  
+  /* Gradients for glass */
+  --glass-gradient: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  
+  --glass-gradient-hover: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
+/* ============================================
+   GLASSMORPHISM UTILITY CLASSES
+   ============================================ */
+
+.glass {
+  background: var(--glass-white);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(var(--glass-blur-strong));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+}
+
+.glass:hover {
+  background: var(--glass-white-hover);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
+}
+
+/* Glassmorphism with gradient */
+.glass-gradient {
+  background: var(--glass-gradient);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.glass-gradient:hover {
+  background: var(--glass-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* ============================================
+   CUSTOM CURSOR
+   ============================================ */
+
+body {
+  cursor: none;
+}
+
+body.cursor-disabled {
+  cursor: auto;
+}
+
+#customCursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary-ocean);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  mix-blend-mode: difference;
+  opacity: 0;
+}
+
+#customCursor.active {
+  opacity: 1;
+}
+
+#customCursor.clicking {
+  transform: scale(0.8);
+  background: rgba(74, 144, 226, 0.2);
+}
+
+#customCursor.hovering {
+  transform: scale(1.5);
+  border-color: var(--primary-green);
+  background: rgba(46, 204, 113, 0.1);
+}
+
+/* Cursor trail */
+.cursor-trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--primary-ocean);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+  animation: cursorTrailFade 0.5s ease-out forwards;
+}
+
+@keyframes cursorTrailFade {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+/* ============================================
+   CLICK RIPPLE EFFECT
+   ============================================ */
+
+.ripple-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(74, 144, 226, 0.4) 0%,
+    rgba(74, 144, 226, 0.2) 50%,
+    transparent 100%
+  );
+  animation: rippleEffect 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+.ripple.green {
+  background: radial-gradient(
+    circle,
+    rgba(46, 204, 113, 0.4) 0%,
+    rgba(46, 204, 113, 0.2) 50%,
+    transparent 100%
+  );
+}
+
+/* ============================================
+   PARTICLE CONTAINER
+   ============================================ */
+
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9997;
+}
+
+/* ============================================
+   PARALLAX LAYERS
+   ============================================ */
+
+.parallax-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+.parallax-layer-1 {
+  transform: translate3d(0, 0, 0);
+}
+
+.parallax-layer-2 {
+  transform: translate3d(0, 0, 0);
+}
+
+.parallax-layer-3 {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ============================================
+   GLOW EFFECTS
+   ============================================ */
+
+.glow-on-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-on-hover::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.glow-on-hover:hover::before {
+  width: 200px;
+  height: 200px;
+  opacity: 1;
+}
+
+/* ============================================
+   SHIMMER EFFECT
+   ============================================ */
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmerSlide 2s infinite;
+}
+
+@keyframes shimmerSlide {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* ============================================
+   FLOATING ANIMATION
+   ============================================ */
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-medium {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float-strong {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+.float-gentle {
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+.float-medium {
+  animation: float-medium 4s ease-in-out infinite;
+}
+
+.float-strong {
+  animation: float-strong 5s ease-in-out infinite;
+}
+
+/* ============================================
+   TILT EFFECT ON HOVER
+   ============================================ */
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+}
+
+/* ============================================
+   SCALE PULSE
+   ============================================ */
+
+@keyframes scale-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.scale-pulse {
+  animation: scale-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   COLOR SHIFT
+   ============================================ */
+
+@keyframes color-shift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(20deg);
+  }
+  100% {
+    filter: hue-rotate(0deg);
+  }
+}
+
+.color-shift {
+  animation: color-shift 3s ease-in-out infinite;
+}
+
+/* ============================================
+   GRADIENT BORDER ANIMATION
+   ============================================ */
+
+.gradient-border {
+  position: relative;
+  background: var(--glass-white);
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--radius-lg);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    var(--primary-ocean),
+    var(--primary-green),
+    var(--primary-ocean)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: gradient-border-rotate 3s linear infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes gradient-border-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================================
+   BUTTON HOVER EFFECTS
+   ============================================ */
+
+.btn-glass {
+  background: var(--glass-white);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glass::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-glass:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-glass:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   LOADING SPINNER WITH GLASS
+   ============================================ */
+
+.spinner-glass {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--primary-ocean);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  backdrop-filter: blur(5px);
+}
+
+/* ============================================
+   INTERACTIVE HIGHLIGHTS
+   ============================================ */
+
+.interactive-highlight {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.interactive-highlight::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(74, 144, 226, 0.3) 50%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  background-size: 200% 200%;
+  animation: highlight-move 2s ease infinite;
+}
+
+.interactive-highlight:hover::after {
+  opacity: 1;
+}
+
+@keyframes highlight-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Disable cursor effects on mobile */
+  body {
+    cursor: auto;
+  }
+  
+  #customCursor,
+  .cursor-trail {
+    display: none;
+  }
+  
+  /* Reduce blur for performance */
+  .glass,
+  .glass-strong,
+  .glass-gradient {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+  
+  /* Reduce ripple size */
+  @keyframes rippleEffect {
+    100% {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  
+  /* Disable parallax on mobile */
+  .parallax-layer {
+    transform: none !important;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after,
+  .float-gentle,
+  .float-medium,
+  .float-strong,
+  .scale-pulse,
+  .color-shift,
+  .gradient-border::before,
+  .cursor-trail,
+  .ripple,
+  .interactive-highlight::after {
+    animation: none !important;
+  }
+  
+  .parallax-layer {
+    transform: none !important;
+  }
+}
+
+/* ============================================
+   DARK MODE ADJUSTMENTS
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glass-white: rgba(0, 0, 0, 0.3);
+    --glass-white-hover: rgba(0, 0, 0, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.5);
+  }
+  
+  .ripple {
+    background: radial-gradient(
+      circle,
+      rgba(74, 144, 226, 0.3) 0%,
+      rgba(74, 144, 226, 0.15) 50%,
+      transparent 100%
+    );
+  }
+}
+
+/* ============================================
+   PERFORMANCE HINTS
+   ============================================ */
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

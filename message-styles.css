@@ -1,0 +1,724 @@
+/* ============================================
+   PHẦN 4: MESSAGE BOX STYLES - RESPONSIVE
+   ============================================ */
+
+/* Message Section Background */
+#section-message {
+  background: linear-gradient(
+    180deg,
+    var(--neutral-white) 0%,
+    rgba(168, 230, 207, 0.3) 100%
+  );
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Decorative background elements */
+#section-message::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -15%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(46, 204, 113, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 10s ease-in-out infinite;
+}
+
+#section-message::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(74, 144, 226, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Message Wrapper */
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   MESSAGE INTRO
+   ============================================ */
+
+.message-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.message-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.2s;
+  line-height: 1.2;
+}
+
+.message-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--neutral-gray);
+  font-weight: 400;
+  animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.4s;
+  line-height: 1.6;
+}
+
+/* ============================================
+   MESSAGE FORM
+   ============================================ */
+
+.message-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.6s;
+}
+
+/* ============================================
+   FORM GROUP & LABELS
+   ============================================ */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--neutral-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color var(--transition-fast);
+}
+
+.form-group:focus-within .form-label {
+  color: var(--primary-ocean);
+}
+
+/* ============================================
+   FORM INPUTS
+   ============================================ */
+
+.form-textarea {
+  width: 100%;
+  padding: var(--spacing-md) 0;
+  border: none;
+  border-bottom: 2px solid var(--accent-light);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--neutral-dark);
+  background: transparent;
+  transition: all var(--transition-base);
+  outline: none;
+  resize: none;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.form-textarea::placeholder {
+  color: var(--neutral-gray);
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+/* Input Focus State */
+.form-textarea:focus {
+  border-bottom-color: var(--primary-ocean);
+  box-shadow: 0 2px 0 var(--primary-ocean);
+  background: rgba(74, 144, 226, 0.02);
+  min-height: 140px;
+}
+
+/* Input Valid State */
+.form-textarea.valid {
+  border-bottom-color: var(--primary-green);
+}
+
+.form-textarea.valid:focus {
+  box-shadow: 0 2px 0 var(--primary-green);
+  background: rgba(46, 204, 113, 0.02);
+}
+
+/* Input Error State */
+.form-textarea.error {
+  border-bottom-color: #e74c3c;
+}
+
+.form-textarea.error:focus {
+  box-shadow: 0 2px 0 #e74c3c;
+  background: rgba(231, 76, 60, 0.02);
+}
+
+/* ============================================
+   CHARACTER COUNTER
+   ============================================ */
+
+.char-counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--neutral-gray);
+  font-weight: 500;
+}
+
+#charCount {
+  font-weight: 600;
+  color: var(--primary-ocean);
+  transition: color var(--transition-fast);
+}
+
+.char-counter.warning #charCount {
+  color: #f39c12;
+}
+
+.char-counter.error #charCount {
+  color: #e74c3c;
+}
+
+.char-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--accent-lighter);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: var(--spacing-xs);
+}
+
+.char-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-ocean), var(--primary-green));
+  border-radius: 2px;
+  transition: width var(--transition-base), background-color var(--transition-base);
+  width: 0%;
+}
+
+.char-bar-fill.warning {
+  background: linear-gradient(90deg, #f39c12, #e67e22);
+}
+
+.char-bar-fill.error {
+  background: linear-gradient(90deg, #e74c3c, #c0392b);
+}
+
+/* ============================================
+   FORM SUBMIT BUTTON
+   ============================================ */
+
+.w-full {
+  width: 100%;
+}
+
+.btn-lg {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-lg);
+  height: 48px;
+}
+
+.message-form .btn {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--spacing-md);
+  transition: all var(--transition-base);
+}
+
+.message-form .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left var(--transition-base);
+  z-index: -1;
+}
+
+.message-form .btn:hover::before {
+  left: 100%;
+}
+
+.message-form .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.message-form .btn:hover svg {
+  transform: translateX(4px);
+}
+
+.message-form .btn svg {
+  transition: transform var(--transition-base);
+  width: 20px;
+  height: 20px;
+}
+
+.message-form .btn:active {
+  transform: translateY(-1px);
+}
+
+.message-form .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.message-form .btn:disabled:hover {
+  transform: none;
+}
+
+/* ============================================
+   SUCCESS MESSAGE
+   ============================================ */
+
+.success-message {
+  width: 100%;
+  animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.2s;
+}
+
+.success-message.hidden {
+  display: none;
+}
+
+.success-content {
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary-ocean), var(--primary-green));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+}
+
+.success-icon svg {
+  width: 40px;
+  height: 40px;
+  stroke-width: 2.5;
+}
+
+.success-content h3 {
+  font-size: var(--font-size-xl);
+  color: var(--neutral-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.success-content p {
+  font-size: var(--font-size-sm);
+  color: var(--neutral-gray);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ============================================
+   CHIIKAWA RAIN ANIMATION - INFINITE
+   ============================================ */
+
+.chiikaw-rain-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.rain-particle {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rain-char {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  font-size: 60px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.rain-char img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+@keyframes rainFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Sparkle/Star animation */
+.sparkle-particle {
+  position: fixed;
+  font-size: 30px;
+  pointer-events: none;
+  animation: sparkleFloat 3s ease-in-out forwards;
+}
+
+@keyframes sparkleFloat {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-50px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .message-wrapper {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .message-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .message-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .message-form {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+
+  .form-textarea {
+    min-height: 100px;
+  }
+
+  .form-textarea:focus {
+    min-height: 120px;
+  }
+
+  .success-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .success-icon svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .rain-particle {
+    width: 70px;
+    height: 70px;
+  }
+
+  .sparkle-particle {
+    font-size: 25px;
+  }
+
+  #section-message::before {
+    width: 400px;
+    height: 400px;
+  }
+
+  #section-message::after {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-wrapper {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    gap: var(--spacing-lg);
+    max-width: 100%;
+  }
+
+  .message-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .message-subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .message-form {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    width: 100%;
+  }
+
+  .form-label {
+    font-size: var(--font-size-xs);
+  }
+
+  .form-textarea {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-sm) 0;
+    min-height: 90px;
+  }
+
+  .form-textarea:focus {
+    min-height: 110px;
+  }
+
+  .char-counter {
+    font-size: 10px;
+  }
+
+  .message-form .btn {
+    height: 44px;
+    width: 100%;
+  }
+
+  .message-form .btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .success-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .success-content {
+    padding: var(--spacing-lg);
+  }
+
+  .success-content h3 {
+    font-size: var(--font-size-base);
+  }
+
+  .success-content p {
+    font-size: var(--font-size-xs);
+  }
+
+  .rain-particle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .sparkle-particle {
+    font-size: 20px;
+  }
+
+  #section-message::before,
+  #section-message::after {
+    display: none;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY & MOTION PREFERENCES
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .message-wrapper,
+  .message-form,
+  .success-message,
+  .success-icon,
+  .form-textarea {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  @keyframes rainFall {
+    to { opacity: 0; }
+  }
+
+  @keyframes sparkleFloat {
+    to { opacity: 0; }
+  }
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  #section-message {
+    background: linear-gradient(
+      180deg,
+      #1a1a1a 0%,
+      rgba(46, 204, 113, 0.05) 100%
+    );
+  }
+
+  .message-form {
+    background: #2a2a2a;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .form-label {
+    color: #e0e0e0;
+  }
+
+  .form-textarea {
+    color: #e0e0e0;
+  }
+
+  .form-textarea::placeholder {
+    color: #888;
+  }
+
+  .form-textarea:focus {
+    background: rgba(74, 144, 226, 0.05);
+  }
+
+  .char-counter {
+    color: #888;
+  }
+
+  .message-subtitle {
+    color: #b0b0b0;
+  }
+
+  .char-bar {
+    background: rgba(168, 230, 207, 0.2);
+  }
+}
+
+/* ============================================
+   ANIMATION UTILITIES
+   ============================================ */
+
+.animate-slideUp {
+  animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+.animate-slideUp:nth-child(1) { animation-delay: 0.2s; }
+.animate-slideUp:nth-child(2) { animation-delay: 0.4s; }
+.animate-slideUp:nth-child(3) { animation-delay: 0.6s; }
+.animate-slideUp:nth-child(4) { animation-delay: 0.8s; }
+/* Glassmorphism for message */
+.message-form {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.success-message .card {
+  backdrop-filter: blur(15px);
+}
+/* ============================================
+   GLASSMORPHISM ENHANCEMENTS - V3.0
+   ============================================ */
+
+/* Message form glass effect */
+.message-form {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Success message glass */
+.success-message .card {
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Submit button glass */
+.message-form .btn-primary {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Form textarea glass effect */
+.form-textarea:focus {
+  background: rgba(74, 144, 226, 0.03);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .message-form {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .success-message .card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
