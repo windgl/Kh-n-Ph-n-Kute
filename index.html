@@ -1,546 +1,620 @@
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <script type="text/javascript" src="https://unpkg.com/@emailjs/browser@3/dist/email.min.js"></script>
-
-<script type="text/javascript">
-   (function(){
-      // Khởi tạo ngay lập tức sau khi tải thư viện
-      emailjs.init("j-6LlihUH6GNu_ZZC"); // Thay Public Key của bạn vào đây
-   })();
-</script>
-    <!-- ==========================================
-         META TAGS & DOCUMENT CONFIGURATION
-         ========================================== -->
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Em ăn cơm chưa? - Trải nghiệm tương tác với âm nhạc, quà tặng và lời nhắn">
-    <meta name="keywords" content="gift, interactive, piano, animation, chiikawa">
-    <meta name="author" content="Developed with love">
-    <meta name="theme-color" content="#4A90E2">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Gift">
-    
-    <!-- ==========================================
-         OPEN GRAPH META TAGS
-         ========================================== -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="🎁 Gửi Khén Phưn Kute">
-    <meta property="og:description" content="Em ăn cơm chưa?">
-    <meta property="og:site_name" content="Gift Website">
-    <meta property="og:locale" content="vi_VN">
-
-    <!-- ==========================================
-         TWITTER META TAGS
-         ========================================== -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="🎁 Gửi Khén Phưn Kute">
-    <meta name="twitter:description" content="Em ăn cơm chưa?">
-
-    <!-- ==========================================
-         STYLESHEET IMPORTS
-         ========================================== -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="intro-styles.css">
-    <link rel="stylesheet" href="piano-styles.css">
-    <link rel="stylesheet" href="gift-styles.css">
-    <link rel="stylesheet" href="message-styles.css">
-    <!-- 🆕 NEW: Effects CSS for Glassmorphism & Interactions -->
-    <link rel="stylesheet" href="effects.css">
-
-    <!-- ==========================================
-         FONT IMPORTS
-         ========================================== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- ==========================================
-         FAVICON & APP ICONS
-         ========================================== -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="images/chiikawa.png">
-    <link rel="manifest" href="manifest.json">
-
-    <!-- ==========================================
-         TITLE
-         ========================================== -->
-    <title>🎁 Gửi Khén Phưn Kute</title>
-
-    <!-- ==========================================
-         PRELOAD CRITICAL RESOURCES
-         ========================================== -->
-    <link rel="preload" as="image" href="images/chiikawa.png">
-    <link rel="preload" as="image" href="images/gift-box.png">
-    <link rel="preload" as="audio" href="audio/piano-C.mp3">
-    <link rel="preload" as="audio" href="audio/piano-bg.mp3">
-
-    <!-- ==========================================
-         DNS PREFETCH
-         ========================================== -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
-    <!-- ==========================================
-         STYLE OVERRIDES & CUSTOM STYLES
-         ========================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gửi Bạn 💌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --primary-ocean: #4A90E2;
-        --primary-green: #2ECC71;
-      }
-
-      /* Smooth transitions */
-      * {
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-
-      body {
-        background: linear-gradient(180deg, #FAFBFC 0%, rgba(168, 230, 207, 0.2) 100%);
-      }
-
-      /* Loading screen fade out */
-      .loading-screen {
-        animation: loadingFadeOut 0.5s ease forwards;
-        animation-delay: 2.5s;
-      }
-
-      @keyframes loadingFadeOut {
-        from {
-          opacity: 1;
-          visibility: visible;
+        /* =========================================
+           1. RESET & CORE VARIABLES
+           ========================================= */
+        :root {
+            --primary: #ff9a9e;
+            --primary-dark: #ff758c;
+            --secondary: #fad0c4;
+            --accent: #d63384;
+            --text-main: #5d4037;
+            --paper: #fff9f0;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
-        to {
-          opacity: 0;
-          visibility: hidden;
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); /* Fallback */
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-main);
+            overflow: hidden; /* Chặn scroll khi chưa mở thư */
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
-      }
 
-      /* Smooth page transitions */
-      html {
-        scroll-behavior: smooth;
-      }
+        /* Lớp nền Canvas cho hiệu ứng tim bay */
+        canvas#heart-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
+        }
 
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
+        /* Lớp mưa rơi (Chiikawa & Emoji) */
+        #rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99; /* Luôn nổi lên trên cùng */
+            display: none; /* Ẩn mặc định, hiện khi mở thư */
+        }
 
-      ::-webkit-scrollbar-track {
-        background: rgba(168, 230, 207, 0.1);
-      }
+        .falling-item {
+            position: absolute;
+            top: -80px;
+            animation: fall linear infinite;
+            will-change: transform, opacity;
+        }
 
-      ::-webkit-scrollbar-thumb {
-        background: #4A90E2;
-        border-radius: 5px;
-      }
+        .falling-item img {
+            display: block;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        }
 
-      ::-webkit-scrollbar-thumb:hover {
-        background: #2ECC71;
-      }
+        @keyframes fall {
+            0% { transform: translateY(-80px) rotate(0deg) translateX(0px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(20px); opacity: 0; }
+        }
+
+        /* =========================================
+           2. ENVELOPE (BAO THƯ) STYLES
+           ========================================= */
+        .envelope-wrapper {
+            position: absolute;
+            z-index: 50;
+            transition: all 1s ease-in-out;
+            cursor: pointer;
+        }
+
+        .envelope-wrapper.open {
+            transform: scale(3);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #ff758c;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Nắp trên của bao thư */
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 130px solid #ff9a9e; /* Màu nắp */
+            transform-origin: top;
+            transition: transform 0.6s 0.2s ease-in-out;
+            z-index: 5;
+        }
+
+        /* Các cạnh bên */
+        .envelope::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid #ffb7b2;
+            border-right: 150px solid #ffb7b2;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid #ffb7b2;
+            border-radius: 0 0 10px 10px;
+            z-index: 4;
+        }
+
+        /* Tem dán trái tim */
+        .heart-sticker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: #d63384;
+            z-index: 6;
+            transition: transform 0.3s;
+            animation: pulse 1.5s infinite;
+        }
+
+        .envelope:hover .heart-sticker {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .envelope.active::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* Giấy bên trong bao thư (trồi lên khi mở) */
+        .paper-preview {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 260px;
+            height: 150px;
+            background: #fff;
+            border-radius: 5px;
+            transition: transform 0.5s 0.8s ease-in-out;
+            z-index: 2;
+        }
+
+        .envelope.active .paper-preview {
+            transform: translateX(-50%) translateY(-80px);
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: #d63384;
+            font-weight: bold;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+        }
+
+        /* =========================================
+           3. MAIN LETTER (GLASSMORPHISM)
+           ========================================= */
+        .letter-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 650px;
+            max-height: 90vh; /* Giới hạn chiều cao */
+            display: none; /* Ẩn ban đầu */
+            opacity: 0;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            perspective: 1000px;
+        }
+
+        .letter-container.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: var(--shadow-strong);
+            text-align: center;
+            overflow-y: auto; /* Scroll nếu dài */
+            max-height: 85vh;
+            transform-style: preserve-3d; /* Cho hiệu ứng 3D Tilt */
+        }
+
+        /* Custom Scrollbar */
+        .glass-card::-webkit-scrollbar { width: 8px; }
+        .glass-card::-webkit-scrollbar-track { background: rgba(255,255,255,0.3); border-radius: 10px; }
+        .glass-card::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--accent);
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #fff;
+            transform: translateZ(20px); /* 3D effect */
+        }
+
+        .highlight-quote {
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 20px;
+            margin: 20px auto;
+            border: 2px dashed var(--primary);
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            display: inline-block;
+            box-shadow: 5px 5px 0px rgba(255, 154, 158, 0.3);
+            transform: translateZ(30px);
+        }
+
+        .content-body {
+            background: var(--paper);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
+            text-align: left;
+            line-height: 1.9;
+            font-size: 1.15rem;
+            margin-top: 25px;
+            position: relative;
+            background-image: radial-gradient(#d63384 1px, transparent 1px);
+            background-size: 20px 20px; /* Chấm bi nhẹ */
+            border: 1px solid #eee;
+            transform: translateZ(10px);
+            min-height: 300px; /* Đảm bảo khung không bị nhảy khi đang gõ */
+        }
+
+        /* Con trỏ nhấp nháy khi gõ */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: var(--text-main);
+            animation: blink 0.7s infinite;
+        }
+
+        .sticker-corner {
+            position: absolute;
+            width: 80px;
+            bottom: -30px;
+            right: -20px;
+            transform: rotate(-10deg);
+            z-index: 20;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+        }
+
+        .sticker-corner:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .signature {
+            margin-top: 20px;
+            text-align: right;
+            font-weight: bold;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        /* Mouse trail effect */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fadeOut 1s linear forwards;
+            z-index: 9999;
+        }
+
+        /* =========================================
+           4. ANIMATIONS
+           ========================================= */
+        @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.15); } 100% { transform: translate(-50%, -50%) scale(1); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes fadeOut { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0); opacity: 0; } }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .glass-card { padding: 20px; }
+            .content-body { padding: 15px; font-size: 1rem; }
+            .highlight-quote { font-size: 1rem; }
+            .envelope { width: 260px; }
+            .paper-preview { width: 220px; }
+        }
     </style>
-  </head>
+</head>
+<body>
 
-  <body>
-    
-    <!-- ==========================================
-         LOADING SCREEN
-         ========================================== -->
-    <div id="loadingScreen" class="loading-screen" role="status" aria-label="Đang tải trang">
-      <div class="loading-spinner">
-        <div class="spinner"></div>
-        <p class="loading-text">Đang tải...</p>
-      </div>
+    <audio id="bgMusic" loop>
+        <source src="audio/bgmusic.mp3" type="audio/mpeg">
+    </audio>
+
+    <canvas id="heart-canvas"></canvas>
+
+    <div id="rain-container"></div>
+
+    <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="envelope">
+            <div class="heart-sticker">💌</div>
+            <div class="paper-preview"></div>
+        </div>
+        <div class="click-hint">Chạm vào bao thư để mở nha! 👇</div>
     </div>
 
-    <!-- ==========================================
-         MAIN APPLICATION CONTAINER
-         ========================================== -->
-    <main id="mainContainer" class="main-container" role="main">
-
-      <!-- ==========================================
-           SECTION 1: INTRO WITH CHIIKAWA & WAVE
-           ========================================== -->
-      <section id="section-intro" class="section active" aria-label="Phần giới thiệu">
-        <div class="section-content">
-          <!-- 🆕 Parallax layers -->
-          <div class="parallax-layer parallax-layer-1"></div>
-          <div class="parallax-layer parallax-layer-2"></div>
-          
-          <div class="intro-wrapper">
+    <div class="letter-container" id="letterContainer">
+        <div class="glass-card" id="glassCard">
+            <h1>Hi bn! 👋</h1>
             
-            <!-- Chiikawa Character Display -->
-            <div class="chiikawa-container" role="img" aria-label="Hình ảnh Chiikawa">
-              <img 
-                src="images/chiikawa.png" 
-                alt="Chiikawa - Nhân vật chính" 
-                class="chiikawa-image animate-float"
-                loading="lazy"
-              >
+            <div class="highlight-quote">
+                "Mih đã đọc đi đọc lại tâm thư bn viết cho mih hơn 10 lần lun rùi nhé!"
             </div>
 
-            <!-- Wave Animation Canvas -->
-            <div class="wave-container" aria-hidden="true">
-              <canvas id="waveCanvas"></canvas>
-            </div>
-
-            <!-- Main Content -->
-            <div class="intro-content">
-              <h1 class="intro-title animate-slideUp" role="heading" aria-level="1">
-                Gửi Khén Phưn Kute
-              </h1>
-              
-              <p class="intro-subtitle animate-slideUp" style="animation-delay: 0.2s;">
-                Em ăn cơm chưa?
-              </p>
-
-              <!-- Main CTA Button with glass effect -->
-              <button 
-                id="btnIntroNext" 
-                class="btn btn-primary mt-lg animate-slideUp glass-gradient"
-                style="animation-delay: 0.4s;"
-                aria-label="Tiếp tục đến phần tiếp theo"
-                type="button"
-              >
-                Tiếp tục
-                <svg 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  stroke-width="2"
-                  aria-hidden="true"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==========================================
-           SECTION 2: INTERACTIVE PIANO
-           ========================================== -->
-      <section id="section-piano" class="section hidden" aria-label="Phần đàn piano tương tác">
-        <div class="section-content">
-          <div class="piano-wrapper">
+            <div class="content-body" id="typewriter-area">
+                </div>
             
-            <!-- Piano Section Title -->
-            <div class="piano-intro">
-              <h2 class="piano-title animate-slideDown" role="heading" aria-level="2">
-                Ây da mình nhức đầu quá 
-              </h2>
-              <p class="piano-subtitle animate-slideDown" style="animation-delay: 0.2s;">
-                Đánh bài gì cho mình nổ não đi bạn.
-              </p>
-            </div>
-
-            <!-- Piano Keys Container with glassmorphism -->
-            <div class="piano-container animate-slideUp glass" style="animation-delay: 0.3s;">
-              <div class="piano-keys" role="group" aria-label="Phím đàn piano">
-                <!-- White & Black Keys -->
-                <div class="piano-key white" data-note="C" role="button" tabindex="0" aria-label="Phím C"></div>
-                <div class="piano-key black" data-note="C#" role="button" tabindex="0" aria-label="Phím C#"></div>
-                <div class="piano-key white" data-note="D" role="button" tabindex="0" aria-label="Phím D"></div>
-                <div class="piano-key black" data-note="D#" role="button" tabindex="0" aria-label="Phím D#"></div>
-                <div class="piano-key white" data-note="E" role="button" tabindex="0" aria-label="Phím E"></div>
-                <div class="piano-key white" data-note="F" role="button" tabindex="0" aria-label="Phím F"></div>
-                <div class="piano-key black" data-note="F#" role="button" tabindex="0" aria-label="Phím F#"></div>
-                <div class="piano-key white" data-note="G" role="button" tabindex="0" aria-label="Phím G"></div>
-                <div class="piano-key black" data-note="G#" role="button" tabindex="0" aria-label="Phím G#"></div>
-                <div class="piano-key white" data-note="A" role="button" tabindex="0" aria-label="Phím A"></div>
-                <div class="piano-key black" data-note="A#" role="button" tabindex="0" aria-label="Phím A#"></div>
-                <div class="piano-key white" data-note="B" role="button" tabindex="0" aria-label="Phím B"></div>
-              </div>
-            </div>
-
-            <!-- Progress Indicator -->
-            <div class="piano-info mt-xl text-center">
-              <p class="text-muted text-sm">🎵🎵🎵🎵🎵🎵</p>
-              <p class="progress-text text-xs mt-sm">
-                <span id="pianoProgress">Alo Bíp Bíp phải không em?</span>
-              </p>
-            </div>
-
-            <!-- Next Section Button -->
-            <button 
-              id="btnPianoNext" 
-              class="btn btn-secondary mt-xl glass"
-              aria-label="Tiếp tục đến phần quà tặng"
-              type="button"
-            >
-              Tiếp tục
-              <svg 
-                width="20" 
-                height="20" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
-          </div>
+            <img src="images/chiikawa1.png" class="sticker-corner" alt="Cute" onerror="this.src='https://cdn-icons-png.flaticon.com/512/9307/9307842.png'">
         </div>
-      </section>
+    </div>
 
-      <!-- ==========================================
-           SECTION 3: GIFT BOX UNWRAP
-           ========================================== -->
-      <section id="section-gift" class="section hidden" aria-label="Phần mở quà tặng">
-        <div class="section-content">
-          <div class="gift-wrapper">
-            
-            <!-- Gift Box Container -->
-            <div class="gift-box-container">
-              <div 
-                id="giftBox" 
-                class="gift-box tilt-card"
-                role="button"
-                tabindex="0"
-                aria-label="Hộp quà - Nhấn để mở"
-              >
-                <!-- Gift Box Visual -->
-                <div class="gift-box-visual">
-                  <img 
-                    src="images/gift-box.png" 
-                    alt="Hộp quà tặng" 
-                    class="gift-box-image"
-                    loading="lazy"
-                  >
-                </div>
+    <div id="source-text" style="display: none;">
+        <p><strong>Gửi bạn,</strong></p>
+        <p>Lúc nhận được thư bạn mình vui lắm, không ngờ bạn lại thích món quà nhỏ đó đến vậy. Thấy bạn cười khúc khích là mình vui rồi, công sức nắn nót viết thư tay của mình cũng xứng đáng nhỉ? =))</p>
+        <p>Đọc đoạn bạn nói muốn gặp mình để làm trò cho mình vui, tự nhiên thấy mọi stress bay biến đâu mất tiêu luôn. Cảm ơn bạn nhiều lắm nha. Bạn đừng lo lắng hay tự trách mình tiêu cực nữa, có chuyện gì không vui cứ nói mình nè, mình nghe hết!</p>
+        <p>Mình hứa sẽ giữ gìn sức khỏe thật tốt để còn học hành và... nghiên cứu chế tạo cái <strong>máy gắp thú bông</strong> cho bạn nha!</p>
+        <p>Bạn cũng nhớ giữ gìn sức khỏe nha. Mong sớm được gặp bạn!</p>
+        <div class="signature">- mphu -</div>
+    </div>
 
-                <!-- Ribbon Decoration -->
-                <div class="gift-ribbon" aria-hidden="true"></div>
-
-                <!-- Click Hint -->
-                <div class="gift-hint">
-                  <p class="text-sm">Đoán xem trong hộp có gì?</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Open Gift Button with glass -->
-            <button 
-              id="btnOpenGift" 
-              class="btn btn-primary mt-xl gift-open-button glass-gradient glow-on-hover"
-              aria-label="Nút mở hộp quà"
-              type="button"
-            >
-              Mở Hộp Quà
-              <svg 
-                width="20" 
-                height="20" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <path d="M12 2L15.09 8.26H22L17.55 12.5L20.09 18.26L12 14.01L3.91 18.26L6.45 12.5L2 8.26H8.91L12 2Z"/>
-              </svg>
-            </button>
-
-            <!-- Gift Message (Hidden until opened) -->
-            <div id="giftMessage" class="gift-message hidden" role="region" aria-live="polite">
-              <div class="card card-gradient glass">
-                <div class="gift-message-content">
-                  <p class="gift-message-text text-lg text-center">
-                    ✨ Không có gì hêt ✨
-                  </p>
-                  <div class="divider mt-lg mb-lg" aria-hidden="true"></div>
-                  <p class="gift-message-detail text-base text-center">
-                    Cảm ơn bạn đã mở quà của mình
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Continue Button (Hidden until gift opened) -->
-            <button 
-              id="btnGiftNext" 
-              class="btn btn-primary mt-xl hidden glass"
-              aria-label="Tiếp tục đến phần lời nhắn"
-              type="button"
-            >
-              Tiếp tục
-              <svg 
-                width="20" 
-                height="20" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==========================================
-           SECTION 4: MESSAGE INPUT
-           ========================================== -->
-      <section id="section-message" class="section hidden" aria-label="Phần nhập lời nhắn">
-        <div class="section-content">
-          <div class="message-wrapper">
-            
-            <!-- Message Section Title -->
-            <div class="message-intro">
-              <h2 class="message-title animate-slideUp" role="heading" aria-level="2">
-                Điều mà bạn muốn nói với mình?
-              </h2>
-              <p class="message-subtitle animate-slideUp" style="animation-delay: 0.2s;">
-                ( Diu Em Luon Giu Kin Trong Tym )
-              </p>
-            </div>
-
-            <!-- Message Form with glassmorphism -->
-            <form 
-              id="messageForm" 
-              class="message-form animate-slideUp glass" 
-              style="animation-delay: 0.4s;"
-              novalidate
-            >
-              <div class="form-group">
-                <label for="messageInput" class="form-label">Đìu muốn nói</label>
-                <textarea 
-                  id="messageInput" 
-                  class="form-textarea"
-                  placeholder="Viết điều gì đó ở đây..."
-                  required
-                  minlength="5"
-                  maxlength="2000"
-                  aria-describedby="charCount"
-                  aria-required="true"
-                ></textarea>
-                <p class="text-xs text-muted mt-sm" id="charCount">
-                  <span id="charCountValue">0</span> / 2000 ký tự
-                </p>
-              </div>
-
-              <!-- Submit Button -->
-              <button 
-                type="submit" 
-                class="btn btn-primary btn-lg mt-lg w-full glass-gradient interactive-highlight"
-                aria-label="Gửi lời nhắn của bạn"
-              >
-                Gửi cho mình 
-                <svg 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  stroke-width="2"
-                  aria-hidden="true"
-                >
-                  <path d="M19 14c1.49-1.46 3-3.5 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2 1.51 4.04 3 5.5"/>
-                </svg>
-              </button>
-            </form>
-
-            <!-- Success Message (Hidden until form submitted) -->
-            <div id="successMessage" class="success-message hidden" role="region" aria-live="assertive" aria-label="Lời nhắn được gửi thành công">
-              <div class="card card-gradient glass">
-                <div class="success-content text-center">
-                  <div class="success-icon" aria-hidden="true">
-                    <svg 
-                      width="60" 
-                      height="60" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      stroke-width="2"
-                    >
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                  </div>
-                  <h3 class="text-xl mt-md">Cảm ơn bạn!</h3>
-                  <p class="text-muted mt-sm">
-                    Điều bạn muốn nói với mình đã được ghi lại 💚
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- ==========================================
-         AUDIO ELEMENTS
-         ========================================== -->
-    <audio id="backgroundMusic" preload="auto" loop aria-label="Âm nhạc nền">
-      <source src="audio/piano-bg.mp3" type="audio/mpeg">
-      Trình duyệt của bạn không hỗ trợ phần tử audio.
-    </audio>
-
-    <audio id="clickSound" preload="auto" aria-label="Âm thanh nhấp">
-      <source src="audio/click-sound.mp3" type="audio/mpeg">
-      Trình duyệt của bạn không hỗ trợ phần tử audio.
-    </audio>
-
-    <audio id="unlockSound" preload="auto" aria-label="Âm thanh mở khóa">
-      <source src="audio/unlock-sound.mp3" type="audio/mpeg">
-      Trình duyệt của bạn không hỗ trợ phần tử audio.
-    </audio>
-
-    <!-- ==========================================
-         JAVASCRIPT IMPORTS
-         ========================================== -->
-    <!-- 🆕 NEW: Load effects scripts FIRST -->
-    <script src="particles.js" defer></script>
-    <script src="haptics.js" defer></script>
-    <script src="effects.js" defer></script>
-    
-    <!-- Existing scripts -->
-    <script src="piano-script.js" defer></script>
-    <script src="gift-script.js" defer></script>
-    <script src="message-script.js" defer></script>
-    <script src="intro-script.js" defer></script>
-
-    <!-- ==========================================
-         INLINE SCRIPT FOR EARLY PERFORMANCE
-         ========================================== -->
     <script>
-      // Prevent FOUC (Flash of Unstyled Content)
-      document.documentElement.style.display = 'block';
+        /* =========================================
+           PART 1: CONFIGURATION & SETUP
+           ========================================= */
+        const config = {
+            typingSpeed: 50, // ms per char (approx 20 chars/sec -> 4 words/sec)
+            particleCount: 80, // Số lượng tim nền
+            rainFrequency: 300, // Tốc độ sinh mưa (ms)
+        };
 
-      // Performance monitoring
-      if (window.performance && window.performance.mark) {
-        performance.mark('app-start');
-      }
+        const els = {
+            envelopeWrapper: document.getElementById('envelopeWrapper'),
+            envelope: document.getElementById('envelope'),
+            letterContainer: document.getElementById('letterContainer'),
+            glassCard: document.getElementById('glassCard'),
+            typewriterArea: document.getElementById('typewriter-area'),
+            sourceText: document.getElementById('source-text'),
+            audio: document.getElementById('bgMusic'),
+            rainContainer: document.getElementById('rain-container')
+        };
 
-      // Console info
-      console.log('%c🎁 Gift Website v3.0 - UPGRADED', 'font-size: 16px; color: #4A90E2; font-weight: bold;');
-      console.log('%c✨ Glassmorphism + Particles + Haptics', 'font-size: 12px; color: #2ECC71;');
-      console.log('%cDeveloped with ❤️', 'font-size: 12px; color: #FF6B9D;');
+        /* =========================================
+           PART 2: CANVAS HEART BACKGROUND (OPTIMIZED)
+           ========================================= */
+        const canvas = document.getElementById('heart-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * height; // Khởi tạo ngẫu nhiên vị trí ban đầu
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + Math.random() * 100;
+                this.speed = Math.random() * 1.5 + 0.5;
+                this.size = Math.random() * 15 + 5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.oscillation = Math.random() * 2; // Độ lắc lư
+                this.step = 0;
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.step += 0.02;
+                this.x += Math.sin(this.step) * 0.5; // Bay lượn nhẹ
+
+                if (this.y < -50) this.reset();
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = '#fff';
+                ctx.translate(this.x, this.y);
+                // Vẽ hình trái tim bằng Bezier Curves
+                ctx.beginPath();
+                const s = this.size / 30; // Scale factor
+                ctx.scale(s, s);
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-15, -15, -30, 10, 0, 30);
+                ctx.bezierCurveTo(30, 10, 15, -15, 0, 0);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < config.particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        initParticles();
+        animateCanvas();
+
+        /* =========================================
+           PART 3: INTERACTION & ANIMATION FLOW
+           ========================================= */
+        
+        // --- 1. Envelope Click ---
+        els.envelopeWrapper.addEventListener('click', () => {
+            // 1. Play Music (Quan trọng: Phải gọi trong sự kiện user click)
+            els.audio.volume = 0.5; // Âm lượng vừa phải
+            els.audio.play().catch(e => console.log("Audio autoplay blocked or failed:", e));
+
+            // 2. Animate Envelope
+            els.envelope.classList.add('active'); // Mở nắp
+
+            setTimeout(() => {
+                // 3. Zoom out & Hide Envelope
+                els.envelopeWrapper.classList.add('open');
+                
+                // 4. Show Letter
+                setTimeout(() => {
+                    els.letterContainer.classList.add('show');
+                    startRain(); // Bắt đầu mưa
+                    typeWriterEffect(); // Bắt đầu gõ chữ
+                }, 500);
+            }, 1000); // Đợi nắp mở xong
+        });
+
+        // --- 2. Typewriter Effect (Smart HTML Parsing) ---
+        function typeWriterEffect() {
+            const content = els.sourceText.innerHTML;
+            const target = els.typewriterArea;
+            target.innerHTML = ''; // Clear
+            
+            let i = 0;
+            let currentHTML = '';
+            let isTag = false;
+
+            // Tạo cursor element
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            cursor.innerHTML = '&nbsp;';
+            
+            function type() {
+                if (i < content.length) {
+                    let char = content.charAt(i);
+
+                    if (char === '<') isTag = true;
+                    if (char === '>') {
+                        isTag = false;
+                        currentHTML += char;
+                        i++;
+                        type(); // Skip delay for tags
+                        return;
+                    }
+
+                    currentHTML += char;
+                    // Chỉ render khi không phải là tag đang dở dang
+                    if (!isTag) {
+                        target.innerHTML = currentHTML;
+                        target.appendChild(cursor); // Luôn giữ cursor ở cuối
+                        setTimeout(type, config.typingSpeed);
+                    } else {
+                        i++;
+                        type(); // Chạy nhanh qua thẻ tag
+                        return;
+                    }
+                    i++;
+                } else {
+                    cursor.remove(); // Xóa cursor khi xong
+                }
+            }
+            type();
+        }
+
+        // --- 3. Rain Effect (Chiikawa + Emojis) ---
+        const rainImages = [
+            'images/chiikawa1.png', 
+            'images/chiikawa2.png', 
+            'images/chiikawa3.png'
+        ];
+        // Fallback images nếu user chưa có file
+        const fallbackImages = [
+            'https://cdn-icons-png.flaticon.com/512/742/742751.png', // Star
+            'https://cdn-icons-png.flaticon.com/512/2904/2904973.png' // Heart
+        ];
+        const emojis = ['⭐', '❤️', '✨', '☁️', '🌸'];
+
+        function createFallingItem() {
+            const item = document.createElement('div');
+            item.classList.add('falling-item');
+            
+            const isImage = Math.random() > 0.4; // 60% Image, 40% Emoji
+
+            if (isImage) {
+                const img = document.createElement('img');
+                // Logic check ảnh (đơn giản hoá: random src)
+                const src = rainImages[Math.floor(Math.random() * rainImages.length)];
+                img.src = src;
+                img.onerror = () => { img.src = fallbackImages[Math.floor(Math.random() * fallbackImages.length)]; };
+                img.style.width = Math.random() * 40 + 30 + 'px';
+                item.appendChild(img);
+            } else {
+                item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                item.style.fontSize = Math.random() * 20 + 15 + 'px';
+            }
+
+            // Random vị trí
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = Math.random() * 3 + 5 + 's'; // 5-8s rơi
+            
+            els.rainContainer.appendChild(item);
+
+            // Cleanup
+            setTimeout(() => { item.remove(); }, 8000);
+        }
+
+        function startRain() {
+            els.rainContainer.style.display = 'block';
+            setInterval(createFallingItem, config.rainFrequency);
+        }
+
+        /* =========================================
+           PART 4: 3D TILT EFFECT (MOUSE MOVE)
+           ========================================= */
+        document.addEventListener('mousemove', (e) => {
+            // Hiệu ứng Sparkle (vệt chuột)
+            if(Math.random() < 0.3) { // Không tạo quá nhiều làm lag
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = e.pageX + 'px';
+                sparkle.style.top = e.pageY + 'px';
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+
+            // Hiệu ứng nghiêng lá thư 3D
+            if (els.letterContainer.classList.contains('show')) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                els.glassCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+
     </script>
-
-    <!-- ==========================================
-         FALLBACK FOR NO JAVASCRIPT
-         ========================================== -->
-    <noscript>
-      <style>
-        .loading-screen { display: none; }
-        .section { display: block; }
-        .section.hidden { display: none; }
-        main { display: block; }
-      </style>
-      <div class="container">
-        <h1>Ứng dụng này yêu cầu JavaScript</h1>
-        <p>Vui lòng bật JavaScript trong trình duyệt của bạn để tiếp tục.</p>
-      </div>
-    </noscript>
-  </body>
+</body>
 </html>
